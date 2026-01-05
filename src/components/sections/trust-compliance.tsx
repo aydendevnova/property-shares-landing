@@ -1,6 +1,7 @@
 "use client";
 
 import { Shield, Lock, FileCheck, Building, BadgeCheck, Scale } from "lucide-react";
+import { FadeUp, StaggerContainer, StaggerItem, ScaleIn } from "@/components/motion";
 
 const trustFeatures = [
   {
@@ -39,7 +40,7 @@ export function TrustComplianceSection() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <FadeUp className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-6">
             <BadgeCheck className="h-4 w-4 text-green-400" />
             <span className="text-sm font-medium text-white/90">Compliance-first approach</span>
@@ -51,30 +52,29 @@ export function TrustComplianceSection() {
             Property Shares AI is designed to support standard investor onboarding checks, 
             with security and compliance at our core.
           </p>
-        </div>
+        </FadeUp>
 
         {/* Trust Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" staggerDelay={0.1}>
           {trustFeatures.map((feature) => (
-            <div
-              key={feature.title}
-              className="p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-            >
-              <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                <feature.icon className="h-6 w-6 text-primary" />
+            <StaggerItem key={feature.title}>
+              <div className="p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 h-full">
+                <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-white">
-                {feature.title}
-              </h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Compliance Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <FadeUp delay={0.3} className="flex flex-wrap items-center justify-center gap-4 mb-16">
           {compliancePartners.map((partner) => (
             <div
               key={partner}
@@ -83,25 +83,26 @@ export function TrustComplianceSection() {
               {partner}
             </div>
           ))}
-        </div>
+        </FadeUp>
 
         {/* Disclaimer */}
-        <div className="max-w-3xl mx-auto p-6 rounded-xl bg-white/5 border border-white/10">
-          <div className="flex items-start gap-4">
-            <Scale className="h-6 w-6 text-slate-400 flex-shrink-0 mt-0.5" />
-            <div className="space-y-2">
-              <h4 className="font-semibold text-white">Important Disclosure</h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                This website is for informational purposes only and is not an offer to sell or a solicitation 
-                to buy securities. Offerings, eligibility, and availability vary by jurisdiction and offering type. 
-                Investments involve risk, including the possible loss of principal. Past performance is not indicative 
-                of future results. Examples shown are illustrative only.
-              </p>
+        <ScaleIn delay={0.4}>
+          <div className="max-w-3xl mx-auto p-6 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-start gap-4">
+              <Scale className="h-6 w-6 text-slate-400 flex-shrink-0 mt-0.5" />
+              <div className="space-y-2">
+                <h4 className="font-semibold text-white">Important Disclosure</h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  This website is for informational purposes only and is not an offer to sell or a solicitation 
+                  to buy securities. Offerings, eligibility, and availability vary by jurisdiction and offering type. 
+                  Investments involve risk, including the possible loss of principal. Past performance is not indicative 
+                  of future results. Examples shown are illustrative only.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </ScaleIn>
       </div>
     </section>
   );
 }
-

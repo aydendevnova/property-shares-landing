@@ -1,6 +1,7 @@
 "use client";
 
 import { Search, ShieldCheck, Wallet } from "lucide-react";
+import { FadeUp, StaggerContainer, StaggerItem } from "@/components/motion";
 
 const steps = [
   {
@@ -28,7 +29,7 @@ export function HowItWorksSection() {
     <section id="how-it-works" className="py-32 lg:py-44 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 lg:mb-20">
+        <FadeUp className="text-center max-w-2xl mx-auto mb-16 lg:mb-20">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
             How it works
           </p>
@@ -38,12 +39,12 @@ export function HowItWorksSection() {
           <p className="text-lg text-muted-foreground">
             Three straightforward steps to start building your real estate portfolio
           </p>
-        </div>
+        </FadeUp>
 
         {/* Steps Grid */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <StaggerContainer className="grid md:grid-cols-3 gap-8 lg:gap-12" staggerDelay={0.15}>
           {steps.map((step, index) => (
-            <div key={step.title} className="relative group">
+            <StaggerItem key={step.title} className="relative group">
               {/* Connector Line */}
               {index < steps.length - 1 && (
                 <div className="hidden md:block absolute top-12 left-[calc(50%+4rem)] w-[calc(100%-4rem)] h-[2px] bg-primary/20" />
@@ -68,12 +69,12 @@ export function HowItWorksSection() {
                   {step.description}
                 </p>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Bottom CTA */}
-        <div className="mt-16 text-center">
+        <FadeUp delay={0.5} className="mt-16 text-center">
           <a
             href="#waitlist"
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
@@ -83,9 +84,8 @@ export function HowItWorksSection() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-        </div>
+        </FadeUp>
       </div>
     </section>
   );
 }
-

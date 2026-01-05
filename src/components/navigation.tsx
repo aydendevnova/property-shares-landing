@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
 
 const navLinks = [
   { href: "#how-it-works", label: "How it works" },
@@ -33,7 +35,10 @@ export function Navigation() {
   }
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border"
@@ -43,7 +48,7 @@ export function Navigation() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
                 <svg
@@ -63,30 +68,38 @@ export function Navigation() {
                 Property Shares<span className="text-primary"> AI</span>
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:gap-8">
-            {navLinks.map((link) => (
-              <button
+            {navLinks.map((link, index) => (
+              <motion.button
                 key={link.href}
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
                 onClick={() => scrollToSection(link.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <motion.div
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.3 }}
+            className="hidden md:block"
+          >
             <Button
               onClick={() => scrollToSection("#waitlist")}
               className="bg-primary hover:bg-primary/90 text-white font-medium px-5"
             >
               Join waitlist
             </Button>
-          </div>
+          </motion.div>
 
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -136,7 +149,6 @@ export function Navigation() {
           </Sheet>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }
-

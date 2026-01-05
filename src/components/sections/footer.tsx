@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { Twitter, Linkedin, Mail } from "lucide-react";
+import { FadeUp, FadeIn } from "@/components/motion";
 
 const footerLinks = {
   product: [
@@ -35,8 +37,8 @@ export function Footer() {
         {/* Main Footer */}
         <div className="py-12 lg:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
-          <div className="col-span-2 md:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-4">
+          <FadeUp className="col-span-2 md:col-span-1">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
                 <svg
                   viewBox="0 0 24 24"
@@ -54,7 +56,7 @@ export function Footer() {
               <span className="font-semibold text-lg tracking-tight text-foreground">
                 Property Shares<span className="text-primary"> AI</span>
               </span>
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground mb-4 max-w-xs">
               The future of real estate is shared. Start building your portfolio today.
             </p>
@@ -71,10 +73,10 @@ export function Footer() {
                 </a>
               ))}
             </div>
-          </div>
+          </FadeUp>
 
           {/* Product Links */}
-          <div>
+          <FadeUp delay={0.1}>
             <h4 className="font-semibold text-foreground mb-4">Product</h4>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
@@ -88,10 +90,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </FadeUp>
 
           {/* Company Links */}
-          <div>
+          <FadeUp delay={0.15}>
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
@@ -105,10 +107,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </FadeUp>
 
           {/* Legal Links */}
-          <div>
+          <FadeUp delay={0.2}>
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
@@ -122,11 +124,11 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </FadeUp>
         </div>
 
         {/* Bottom Footer */}
-        <div className="py-6 border-t border-slate-200">
+        <FadeIn className="py-6 border-t border-slate-200">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <p className="text-sm text-muted-foreground">
               © {currentYear} Property Shares AI. All rights reserved.
@@ -136,9 +138,8 @@ export function Footer() {
               Investments involve risk, including the possible loss of principal.
             </p>
           </div>
-        </div>
+        </FadeIn>
       </div>
     </footer>
   );
 }
-

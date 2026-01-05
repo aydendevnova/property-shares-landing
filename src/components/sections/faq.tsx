@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { FadeUp, StaggerContainer, StaggerItem } from "@/components/motion";
 
 const faqs = [
   {
@@ -47,7 +48,7 @@ export function FAQSection() {
     <section id="faq" className="py-32 lg:py-44 bg-slate-50">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12 lg:pb-16">
+        <FadeUp className="text-center mb-12 lg:pb-16">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
             FAQ
           </p>
@@ -57,28 +58,31 @@ export function FAQSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Everything you need to know about investing with Property Shares AI
           </p>
-        </div>
+        </FadeUp>
 
         {/* FAQ Accordion */}
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border border-slate-200 rounded-xl px-6 data-[state=open]:bg-slate-50/50 transition-colors"
-            >
-              <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-5">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <StaggerContainer staggerDelay={0.05}>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <StaggerItem key={index}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="border border-slate-200 rounded-xl px-6 data-[state=open]:bg-slate-50/50 transition-colors"
+                >
+                  <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-5">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </StaggerItem>
+            ))}
+          </Accordion>
+        </StaggerContainer>
 
         {/* Contact CTA */}
-        <div className="mt-18 text-center">
+        <FadeUp delay={0.3} className="mt-18 text-center">
           <p className="text-muted-foreground mb-4">
             Still have questions?
           </p>
@@ -91,9 +95,8 @@ export function FAQSection() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-        </div>
+        </FadeUp>
       </div>
     </section>
   );
 }
-
