@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
@@ -51,71 +51,37 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #ffffff;
+  --foreground: #0B1220;
+  --card: #ffffff;
+  --card-foreground: #0B1220;
+  --popover: #ffffff;
+  --popover-foreground: #0B1220;
+  --primary: #2563EB;
+  --primary-foreground: #ffffff;
+  --secondary: #F7FAFC;
+  --secondary-foreground: #0B1220;
+  --muted: #F7FAFC;
+  --muted-foreground: #334155;
+  --accent: #F7FAFC;
+  --accent-foreground: #0B1220;
+  --destructive: #dc2626;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #2563EB;
+  --chart-1: #2563EB;
+  --chart-2: #16A34A;
+  --chart-3: #F59E0B;
+  --chart-4: #8B5CF6;
+  --chart-5: #EC4899;
+  --sidebar: #F7FAFC;
+  --sidebar-foreground: #0B1220;
+  --sidebar-primary: #2563EB;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #E2E8F0;
+  --sidebar-accent-foreground: #0B1220;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #2563EB;
 }
 
 @layer base {
@@ -123,6 +89,145 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight text-foreground;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background-color: #2563EB;
+  color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7FAFC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Rotating Text Component Styles */
+.rotating-text-wrapper {
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.rotating-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.rotating-text-item {
+  flex-shrink: 0;
+  line-height: 1.1;
+}
+
+/* CSS Marquee Styles */
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  animation: marquee-scroll 30s linear infinite;
+  flex-shrink: 0;
+}
+
+.marquee-content[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Accordion Animation */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.accordion-content[data-state="open"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content-inner {
+  overflow: hidden;
+}
+
+/* Property Card Hover Effect */
+.property-card {
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), 
+              box-shadow 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.property-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Subtle animation for scroll reveals */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+/* Stagger delays for children */
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 500ms; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
