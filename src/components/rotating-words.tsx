@@ -32,7 +32,7 @@ export function RotatingWords({
   return (
     <span
       ref={containerRef}
-      className={`inline-block relative overflow-hidden ${className}`}
+      className={`inline-block relative overflow-hidden align-bottom ${className}`}
     >
       <span
         className={`inline-block transition-all duration-300 ease-out ${

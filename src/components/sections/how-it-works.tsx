@@ -2,6 +2,9 @@
 
 import { Search, ShieldCheck, Wallet } from "lucide-react";
 import { FadeUp, StaggerContainer, StaggerItem } from "@/components/motion";
+import { GOOGLE_FORM_URL } from "@/consts";
+
+
 
 const steps = [
   {
@@ -42,17 +45,17 @@ export function HowItWorksSection() {
         </FadeUp>
 
         {/* Steps Grid */}
-        <StaggerContainer className="grid md:grid-cols-3 gap-8 lg:gap-12" staggerDelay={0.15}>
+        <StaggerContainer className="grid md:grid-cols-3 gap-8 lg:gap-12 items-stretch" staggerDelay={0.15}>
           {steps.map((step, index) => (
-            <StaggerItem key={step.title} className="relative group">
+            <StaggerItem key={step.title} className="relative group h-full">
               {/* Connector Line */}
               {index < steps.length - 1 && (
                 <div className="hidden md:block absolute top-12 left-[calc(50%+4rem)] w-[calc(100%-4rem)] h-[2px] bg-primary/20" />
               )}
 
-              <div className="relative bg-white rounded-2xl p-8 border border-slate-200 hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+              <div className="relative h-full bg-white rounded-2xl p-8 border border-slate-200 hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
                 {/* Step Number */}
-                <div className="absolute -top-3 -right-3 h-8 w-14 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="absolute top-3 right-3 h-8 w-14 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-sm font-bold text-primary">{step.step}</span>
                 </div>
 
@@ -76,7 +79,9 @@ export function HowItWorksSection() {
         {/* Bottom CTA */}
         <FadeUp delay={0.5} className="mt-16 text-center">
           <a
-            href="#waitlist"
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             Get started today

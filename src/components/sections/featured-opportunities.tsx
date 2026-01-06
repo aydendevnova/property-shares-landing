@@ -1,23 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { MapPin, ExternalLink } from "lucide-react";
 import { FadeUp, StaggerContainer, StaggerItem, motion } from "@/components/motion";
+import Link from "next/link";
+import { GOOGLE_FORM_URL } from "@/consts";
 
 const properties = [
   {
     id: 1,
     location: "Phoenix, AZ",
     type: "Single Family Home",
+    image: "/property-shares-2.jpeg",
     minInvestment: "$100",
     holdPeriod: "12-24 months",
     progress: 72,
-    status: "Funding",
+    status: "New",
   },
   {
     id: 2,
     location: "Scottsdale, AZ",
     type: "Modern Townhouse",
+    image: "/property-shares-3.jpeg",
     minInvestment: "$250",
     holdPeriod: "18-30 months",
     progress: 45,
@@ -27,6 +32,7 @@ const properties = [
     id: 3,
     location: "Mesa, AZ",
     type: "Multi-Family Duplex",
+    image: "/property-shares-4.jpeg",
     minInvestment: "$500",
     holdPeriod: "24-36 months",
     progress: 88,
@@ -55,8 +61,8 @@ export function FeaturedOpportunitiesSection() {
 
         {/* Notice Banner */}
         <FadeUp delay={0.1} className="mb-8">
-          <div className="p-4 rounded-lg bg-amber-50 border border-amber-200/50">
-            <p className="text-sm text-amber-800">
+          <div className="p-4 rounded-lg bg-gray-50 border border-gray-200/50">
+            <p className="text-sm text-gray-800">
               <span className="font-semibold">Note:</span> Featured opportunities shown for demonstration purposes. 
               Availability depends on offering terms and jurisdiction.
             </p>
@@ -72,26 +78,28 @@ export function FeaturedOpportunitiesSection() {
                 transition={{ duration: 0.2 }}
                 className="property-card group bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-primary/30"
               >
-                {/* Image Placeholder */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 relative">
+                {/* Property Image */}
+                <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
+                  <Image
+                    src={property.image}
+                    alt={`${property.type} in ${property.location}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                   {/* Status Badge */}
-                  <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-medium ${
+                  <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-medium z-10 ${
                     property.status === "New" 
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-blue-100 text-blue-700"
                       : property.status === "Almost Full"
-                      ? "bg-amber-100 text-amber-700"
+                      ? "bg-amber-100 text-amber-700" : property.status === "Funding"
+                      ? "bg-green-100 text-green-700"
                       : "bg-primary/10 text-primary"
                   }`}>
                     {property.status}
                   </div>
-                  <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-black/60 backdrop-blur text-xs text-white">
+                  <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-black/60 backdrop-blur text-xs text-white z-10">
                     Sample
-                  </div>
-                  {/* House illustration */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                    <svg className="w-20 h-20 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 3L4 9v12h16V9l-8-6zm6 16h-3v-6H9v6H6v-9.5l6-4.5 6 4.5V19z"/>
-                    </svg>
                   </div>
                 </div>
 
@@ -142,14 +150,16 @@ export function FeaturedOpportunitiesSection() {
 
         {/* Bottom CTA */}
         <FadeUp delay={0.4} className="mt-16 text-center">
+          <Link href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
           <Button
             variant="outline"
             size="lg"
             className="border-primary/30 text-primary hover:bg-primary/5"
           >
-            View all opportunities
+            Join waitlist
             <ExternalLink className="h-4 w-4 ml-2" />
           </Button>
+          </Link>
         </FadeUp>
       </div>
     </section>

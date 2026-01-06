@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
+import { GOOGLE_FORM_URL } from "@/consts";
+
+
 
 const navLinks = [
   { href: "#how-it-works", label: "How it works" },
@@ -94,10 +97,12 @@ export function Navigation() {
             className="hidden md:block"
           >
             <Button
-              onClick={() => scrollToSection("#waitlist")}
+              asChild
               className="bg-primary hover:bg-primary/90 text-white font-medium px-5"
             >
-              Join waitlist
+              <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
+                Get early access
+              </a>
             </Button>
           </motion.div>
 
@@ -108,8 +113,8 @@ export function Navigation() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-white">
-              <div className="flex flex-col gap-6 pt-8">
+            <SheetContent side="right" className="w-[300px] bg-white p-6">
+              <div className="flex flex-col gap-6 pt-6">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
                     <svg
@@ -139,10 +144,12 @@ export function Navigation() {
                   </button>
                 ))}
                 <Button
-                  onClick={() => scrollToSection("#waitlist")}
+                  asChild
                   className="mt-4 w-full bg-primary hover:bg-primary/90 text-white font-medium"
                 >
-                  Join waitlist
+                  <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
+                    Get early access
+                  </a>
                 </Button>
               </div>
             </SheetContent>

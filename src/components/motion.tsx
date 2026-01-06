@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { type ReactNode } from "react";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { type ReactNode, type RefObject } from "react";
 
 // Fade up animation for sections
 export const fadeInUp: Variants = {
@@ -274,6 +274,16 @@ export function StaggerItem({ children, className }: Omit<MotionWrapperProps, "d
   );
 }
 
-// Re-export motion for direct use
-export { motion };
+// Parallax scroll hook
+export function useParallax(ref: RefObject<HTMLElement | null>, distance = 100) {
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
+  return { y, scrollYProgress };
+}
+
+// Re-export motion and hooks for direct use
+export { motion, useScroll, useTransform };
 

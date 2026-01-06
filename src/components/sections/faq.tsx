@@ -87,7 +87,7 @@ export function FAQSection() {
             Still have questions?
           </p>
           <a
-            href="mailto:hello@propertyshares.ai"
+            href="mailto:private@exponentlabs.ai"
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
           >
             Contact our team

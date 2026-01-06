@@ -9,23 +9,23 @@ const footerLinks = {
     { label: "How it works", href: "#how-it-works" },
     { label: "Opportunities", href: "#opportunities" },
     { label: "FAQ", href: "#faq" },
-  ],
-  company: [
-    { label: "About", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "mailto:hello@propertyshares.ai" },
-  ],
-  legal: [
-    { label: "Terms of Service", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Disclosures", href: "#" },
-  ],
+  ]
+  // company: [
+  //   { label: "About", href: "#" },
+  //   { label: "Careers", href: "#" },
+  //   { label: "Contact", href: "mailto:hello@propertyshares.ai" },
+  // ],
+  // legal: [
+  //   { label: "Terms of Service", href: "#" },
+  //   { label: "Privacy Policy", href: "#" },
+  //   { label: "Disclosures", href: "#" },
+  // ],
 };
 
 const socialLinks = [
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:hello@propertyshares.ai", label: "Email" },
+  { icon: Mail, href: "mailto:private@exponentlabs.ai", label: "Email" },
 ];
 
 export function Footer() {
@@ -62,7 +62,7 @@ export function Footer() {
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-3">
-              {socialLinks.map((social) => (
+              {/* {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
@@ -71,7 +71,7 @@ export function Footer() {
                 >
                   <social.icon className="h-4 w-4" />
                 </a>
-              ))}
+              ))} */}
             </div>
           </FadeUp>
 
@@ -91,8 +91,8 @@ export function Footer() {
               ))}
             </ul>
           </FadeUp>
-
-          {/* Company Links */}
+{/* 
+    
           <FadeUp delay={0.15}>
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
@@ -109,7 +109,7 @@ export function Footer() {
             </ul>
           </FadeUp>
 
-          {/* Legal Links */}
+      
           <FadeUp delay={0.2}>
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-3">
@@ -124,7 +124,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </FadeUp>
+          </FadeUp> */}
         </div>
 
         {/* Bottom Footer */}

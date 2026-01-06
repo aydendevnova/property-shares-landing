@@ -1,30 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
+import Image from "next/image";
+import { useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { RotatingWords } from "@/components/rotating-words";
-import { FadeUp, SlideInLeft, SlideInRight, ScaleIn, motion } from "@/components/motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { FadeUp, SlideInLeft, motion } from "@/components/motion";
+import { ArrowRight } from "lucide-react";
+import { GOOGLE_FORM_URL } from "@/consts";
+
 
 export function HeroSection() {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
 
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitted(true);
-    setIsLoading(false);
-  }
+  // Phone parallax - moves up as user scrolls down
+  const phoneY = useTransform(scrollYProgress, (v: number) => v * -280);
+  // Decorative elements parallax - different speeds for depth
+  const bubble1Y = useTransform(scrollYProgress, (v: number) => v * -80);
+  const bubble2Y = useTransform(scrollYProgress, (v: number) => v * -120);
+  const sliderY = useTransform(scrollYProgress, (v: number) => v * -60);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-16 bg-blue-50">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center pt-16 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
       <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Content */}
@@ -36,17 +38,17 @@ export function HeroSection() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                <span className="text-sm font-medium text-primary">Now accepting early access signups</span>
+                <span className="text-sm font-medium text-primary">Sign up now for early access</span>
               </div>
             </FadeUp>
 
             {/* Headline */}
             <FadeUp delay={0.2}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight">
-                Real estate investing,{" "}
+                The future of real estate wealth is{" "}
                 <span className="text-primary">
                   <RotatingWords
-                    words={["simplified", "accessible", "diversified", "transparent"]}
+                    words={["shared", "accessible", "diversified", "transparent"]}
                     interval={2500}
                   />
                 </span>
@@ -61,175 +63,111 @@ export function HeroSection() {
               </p>
             </FadeUp>
 
-            {/* Waitlist Form */}
+            {/* CTA Button */}
             <FadeUp delay={0.4}>
-              <div id="waitlist" className="space-y-4">
-                {!isSubmitted ? (
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
-                    <Input
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-12 px-4 text-base bg-white border-border focus:border-primary"
-                    />
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="h-12 px-6 bg-primary hover:bg-primary/90 text-white font-medium whitespace-nowrap"
-                    >
-                      {isLoading ? (
-                        <span className="flex items-center gap-2">
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                          </svg>
-                          Joining...
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-2">
-                          Join waitlist
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      )}
-                    </Button>
-                  </form>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex items-center gap-3 p-4 rounded-lg bg-green-50 border border-green-200 max-w-md"
-                  >
-                    <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                    <p className="text-sm text-green-800">
-                      You&apos;re on the list! We&apos;ll notify you when your region opens.
-                    </p>
-                  </motion.div>
-                )}
+              <div className="space-y-4">
+                <Button
+                  asChild
+                  className="h-12 px-8 bg-primary hover:bg-primary/90 text-white font-medium"
+                >
+                  <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
+                    <span className="flex items-center gap-2">
+                      Get early access
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </a>
+                </Button>
                 <p className="text-sm text-muted-foreground">
                   Early access is limited. We&apos;ll notify you when your region opens.
                 </p>
               </div>
             </FadeUp>
 
-            {/* Social Proof */}
-            <FadeUp delay={0.5}>
-              <div className="flex items-center gap-4 pt-4">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.6 + i * 0.1, duration: 0.3 }}
-                      className="h-8 w-8 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 border-2 border-white flex items-center justify-center text-xs font-medium text-slate-500"
-                    >
-                      {String.fromCharCode(64 + i)}
-                    </motion.div>
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">2,400+</span> investors already on the waitlist
-                </p>
-              </div>
-            </FadeUp>
+         
           </SlideInLeft>
 
-          {/* Right Column - Property Card Visual */}
-          <SlideInRight className="relative lg:pl-8" delay={0.2}>
-            {/* Main Property Card */}
-            <ScaleIn delay={0.3}>
-              <div className="relative bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-                {/* Property Image */}
-                <div className="aspect-[4/3] bg-slate-100 relative">
-                  {/* Sample label */}
-                  <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-xs font-medium text-slate-700">
-                    Sample Listing
-                  </div>
-                  {/* House illustration */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="w-32 h-32 text-slate-300" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 3L4 9v12h16V9l-8-6zm6 16h-3v-6H9v6H6v-9.5l6-4.5 6 4.5V19z"/>
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Property Details */}
-                <div className="p-6 space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Phoenix, AZ</p>
-                    <h3 className="text-lg font-semibold text-foreground mt-1">
-                      Modern Single Family Home
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide">Min. Investment</p>
-                      <p className="text-lg font-semibold text-primary">$100</p>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide">Hold Period</p>
-                      <p className="text-lg font-semibold text-foreground">12-24 mo</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <div className="flex items-center justify-between text-sm mb-2">
-                      <span className="text-muted-foreground">Funding progress</span>
-                      <span className="font-medium text-foreground">68%</span>
-                    </div>
-                    <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: "68%" }}
-                        transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-                        className="h-full bg-primary rounded-full"
-                      />
-                    </div>
-                  </div>
-
-                  <Button className="w-full h-11 bg-primary hover:bg-primary/90 text-white font-medium">
-                    View Details
-                  </Button>
-                </div>
-              </div>
-            </ScaleIn>
-
-            {/* Floating UI Elements */}
+          {/* Right Column - Phone Mockup with Decorative Elements */}
+          <div className="relative lg:pl-8 flex items-center justify-center">
+            {/* Amount Slider Card - Decorative */}
             <motion.div
-              initial={{ opacity: 0, y: 20, x: 20 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{ delay: 0.9, duration: 0.5 }}
-              className="absolute -top-4 -right-4 p-3 bg-white rounded-xl shadow-lg border border-slate-100 hidden lg:flex items-center gap-3"
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              style={{ y: sliderY }}
+              className="absolute left-0 lg:-left-8 top-1/3 z-20 hidden lg:block"
             >
-              <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Verification</p>
-                <p className="text-sm font-medium text-foreground">Complete</p>
+              <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-4 w-52">
+                <p className="text-xs text-slate-500 mb-1">Amount: <span className="text-slate-900 font-medium">$8,545.00</span></p>
+                <div className="relative mt-3">
+                  {/* Slider track */}
+                  <div className="h-1.5 bg-slate-100 rounded-full w-full">
+                    <div className="h-1.5 bg-primary rounded-full" style={{ width: "46%" }} />
+                  </div>
+                  {/* Slider thumb */}
+                  <div 
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full shadow-md"
+                    style={{ left: "46%" }}
+                  />
+                </div>
+                <div className="flex justify-between mt-2 text-xs text-slate-400">
+                  <span>$0</span>
+                  <span className="text-primary font-medium">$4,600</span>
+                  <span>$10,000</span>
+                </div>
               </div>
             </motion.div>
 
+            {/* "Share In Real Estate" Bubble - Top Right */}
             <motion.div
-              initial={{ opacity: 0, y: -20, x: -20 }}
-              animate={{ opacity: 1, y: 0, x: 0 }}
-              transition={{ delay: 1, duration: 0.5 }}
-              className="absolute -bottom-4 -left-4 p-3 bg-white rounded-xl shadow-lg border border-slate-100 hidden lg:flex items-center gap-3"
+              initial={{ opacity: 0, x: 40, y: -20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+              style={{ y: bubble1Y }}
+              className="absolute -right-4 lg:right-0 top-8 z-20 hidden sm:block"
             >
-              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <svg className="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Starting from</p>
-                <p className="text-sm font-medium text-foreground">$100</p>
+              <div className="bg-slate-900 text-white px-4 py-2.5 rounded-full text-sm font-medium shadow-lg">
+                Share In Real Estate
               </div>
             </motion.div>
-          </SlideInRight>
+
+            {/* Phone Mockup with Parallax */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{ y: phoneY }}
+              className="relative z-10"
+            >
+              <div className="relative w-[280px] sm:w-[320px] lg:w-[380px]">
+                <Image
+                  src="/mockup.png"
+                  alt="Property Shares app showing fractional real estate investment interface"
+                  width={380}
+                  height={780}
+                  className="w-full h-auto drop-shadow-2xl"
+                  priority
+                />
+              </div>
+            </motion.div>
+
+            {/* "Escrow on-chain" Bubble - Bottom Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -40, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              style={{ y: bubble2Y }}
+              className="absolute left-4 lg:left-8 bottom-24 lg:bottom-32 z-20 hidden sm:block"
+            >
+              <div className="bg-white border border-slate-200 text-slate-900 px-4 py-2.5 rounded-full text-sm font-medium shadow-lg">
+                Escrow on-chain
+              </div>
+            </motion.div>
+
+            {/* Subtle gradient glow behind phone */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+              <div className="w-[400px] h-[400px] bg-gradient-to-r from-primary/10 via-blue-400/10 to-primary/5 rounded-full blur-3xl" />
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -18,12 +18,7 @@ const trustFeatures = [
     icon: FileCheck,
     title: "Full Disclosure",
     description: "Transparent documentation and clear terms for every investment opportunity.",
-  },
-  {
-    icon: Building,
-    title: "Regulated Framework",
-    description: "Operating within established securities regulatory pathways.",
-  },
+  }
 ];
 
 const compliancePartners = [
@@ -55,7 +50,7 @@ export function TrustComplianceSection() {
         </FadeUp>
 
         {/* Trust Features Grid */}
-        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" staggerDelay={0.1}>
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" staggerDelay={0.1}>
           {trustFeatures.map((feature) => (
             <StaggerItem key={feature.title}>
               <div className="p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 h-full">
@@ -89,7 +84,7 @@ export function TrustComplianceSection() {
         <ScaleIn delay={0.4}>
           <div className="max-w-3xl mx-auto p-6 rounded-xl bg-white/5 border border-white/10">
             <div className="flex items-start gap-4">
-              <Scale className="h-6 w-6 text-slate-400 flex-shrink-0 mt-0.5" />
+              <Scale className="h-6 w-6 text-slate-400 shrink-0 mt-0.5" />
               <div className="space-y-2">
                 <h4 className="font-semibold text-white">Important Disclosure</h4>
                 <p className="text-sm text-slate-400 leading-relaxed">
